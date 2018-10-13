@@ -22,9 +22,9 @@ if(isset($_POST["login"])){
         $result = $statement->fetchAll();
         foreach($result as $row){
            
-            $hash = password_hash($row['user_password'], PASSWORD_DEFAULT);
+            //$hash = password_hash($row['user_password'], PASSWORD_DEFAULT);
           
-            if(password_verify($_POST['user_password'], $hash )){
+            if(password_verify($_POST['user_password'], $row['user_password'] )){
                 if($row['user_status']=='Active'){
                     $_SESSION['type'] = $row['user_type'];
                     $_SESSION['user_id'] = $row['user_id'];
@@ -35,7 +35,7 @@ if(isset($_POST["login"])){
                     $message = "<label>Your account is disabled, Contact Master</label>";
                 }
             } else {
-                $message = "<label>Wrong Password<br>$formpw</label>";
+                $message = "<label>Wrong Password</label>";
 
             }
         }
